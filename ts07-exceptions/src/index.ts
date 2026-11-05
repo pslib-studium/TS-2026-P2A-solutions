@@ -26,8 +26,14 @@ function Encode(text: string): string {
     let result: string = "";
     for (let word of cleanedText.split(/\s+/)) {
         for (let char of word.split("")) {
-            result += morse[char]
-        } 
+            try {
+                if (morse[char] === undefined) throw Error("neplatný znak")
+                result += morse[char]
+            } catch (e) {
+                console.error(e);
+                result += "?"
+            }
+        }
     }
 
     return result;
